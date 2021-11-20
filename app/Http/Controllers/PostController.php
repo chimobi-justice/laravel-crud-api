@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return Post::latest()->get();
     }
 
     /**
@@ -29,7 +29,6 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required',
             'body' => 'required',
-            'slug' => 'required',
         ]);
 
         $slug_title = $request->title;
@@ -81,7 +80,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
         return Post::destroy($id);
     }
